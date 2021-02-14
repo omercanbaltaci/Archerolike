@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeekEnemyAndShoot : MonoBehaviour
+public class ShootEnemy : MonoBehaviour
 {
+    [Header("Targeting")]
     public Transform target;
     public string targetTag;
     public float turnSpeed;
     
+    [Header("Attributes")]
     public float fireRate = 1f;
     private float fireCountdown = 0f;
+
+    [Header("Bullet")]
+    public GameObject bulletPrefab;
+    public Transform firePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +43,12 @@ public class SeekEnemyAndShoot : MonoBehaviour
         }
 
         if (nearestEnemy != null)
+        {
             target = nearestEnemy.transform;
+
+            if (IsGOSleeping())
+                Shoot();
+        }
         else
             target = null;
     }
@@ -51,27 +62,34 @@ public class SeekEnemyAndShoot : MonoBehaviour
         */
 
         // target lock on
-        /*
         Vector3 direction = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        if (playerRB.IsSleeping())
+        if (IsGOSleeping())
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-        */
 
         if (fireCountdown == 0f)
-        {
-            Shoot();
             fireCountdown = 1f / fireRate;
-        }
 
         fireCountdown -= Time.deltaTime;
     }
 
     void Shoot()
     {
-        Debug.Log("Shoot");
+        GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+
+        if (bullet != null)
+            bullet.Seek(target);
+    }
+
+    private bool IsGOSleeping()
+    {
+        if (gameObject.GetComponent<Rigidbody>().velocity == new Vector3(0f, 0f, 0f))
+            return true;
+        else return false;
     }
 }

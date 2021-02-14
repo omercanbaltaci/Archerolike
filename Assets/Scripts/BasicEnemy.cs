@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SeekPlayer : MonoBehaviour
+public class BasicEnemy : MonoBehaviour
 {
     public NavMeshAgent enemy;
     public Transform player;
+    private float hitPoint = 100f;
 
     // Start is called before the first frame update
     void Start()

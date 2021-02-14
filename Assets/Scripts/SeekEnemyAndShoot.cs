@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class SeekEnemyAndShoot : MonoBehaviour
 {
-    private Transform target;
+    public Transform target;
     public string targetTag;
     public float turnSpeed;
+    
+    public float fireRate = 1f;
+    private float fireCountdown = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +31,7 @@ public class SeekEnemyAndShoot : MonoBehaviour
 
             if (distance < shortestDistance)
             {
-                distance = shortestDistance;
+                shortestDistance = distance;
                 nearestEnemy = enemy;
             }
         }
@@ -48,14 +51,27 @@ public class SeekEnemyAndShoot : MonoBehaviour
         */
 
         // target lock on
+        /*
         Vector3 direction = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        if (gameObject.GetComponent<Rigidbody>().IsSleeping())
-        {
+        if (playerRB.IsSleeping())
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        */
+
+        if (fireCountdown == 0f)
+        {
+            Shoot();
+            fireCountdown = 1f / fireRate;
         }
+
+        fireCountdown -= Time.deltaTime;
+    }
+
+    void Shoot()
+    {
+        Debug.Log("Shoot");
     }
 }

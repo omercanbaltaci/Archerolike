@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
-    public int numberOfEnemies;
     private int xPos;
     private int zPos;
+
+    [Header("Number of Additional Enemies")]
+    public int count;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        while (numberOfEnemies > 0)
+        while (count > 0)
         {
             xPos = Random.Range(-10, 13);
             zPos = Random.Range(0, 12);
@@ -31,9 +33,9 @@ public class EnemySpawner : MonoBehaviour
             GameObject instantiatedEnemy = Instantiate(enemy, new Vector3(xPos, 1f, zPos), Quaternion.identity);
             instantiatedEnemy.gameObject.tag = "Enemy";
 
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(0f);
 
-            numberOfEnemies--;
+            count--;
         }
     }
 }

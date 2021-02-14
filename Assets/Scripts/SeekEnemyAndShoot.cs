@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeekEnemy : MonoBehaviour
+public class SeekEnemyAndShoot : MonoBehaviour
 {
     private Transform target;
     public string targetTag;

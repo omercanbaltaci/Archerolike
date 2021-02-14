@@ -724,3 +724,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Enemy
+  turnSpeed: 3

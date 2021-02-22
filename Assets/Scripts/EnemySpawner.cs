@@ -14,7 +14,20 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnEnemy());
+        //StartCoroutine(SpawnEnemy());
+
+        while (count > 0)
+        {
+            xPos = Random.Range(-10, 13);
+            zPos = Random.Range(0, 12);
+
+            GameObject instantiatedEnemy = Instantiate(enemyPrefab, new Vector3(xPos, 1f, zPos), Quaternion.identity);
+            instantiatedEnemy.gameObject.tag = "Enemy";
+
+            //yield return new WaitForSeconds(0f);
+
+            count--;
+        }
     }
 
     // Update is called once per frame

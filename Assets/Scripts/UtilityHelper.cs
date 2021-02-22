@@ -12,7 +12,7 @@ public static class UtilityHelper
         t.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
-    // Will return if the given gameobject has the velocity of 0
+    // Will return true if the given gameobject has the velocity of 0
     public static bool IsGOSleeping(GameObject gO)
     {
         if (gO.GetComponent<Rigidbody>().velocity == new Vector3(0f, 0f, 0f))

@@ -46,7 +46,7 @@ public class ShootEnemy : MonoBehaviour
         {
             target = nearestEnemy.transform;
 
-            if (IsGOSleeping())
+            if (UtilityHelper.IsGOSleeping(gameObject))
                 Shoot();
         }
         else
@@ -62,12 +62,10 @@ public class ShootEnemy : MonoBehaviour
         */
 
         // target lock on
-        if (target != null && IsGOSleeping())
+        if (target != null && UtilityHelper.IsGOSleeping(gameObject))
         {
-            Vector3 direction = target.position - transform.position;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
-            transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+            Vector3 dir = target.position - transform.position;
+            UtilityHelper.ChangeRotation(transform, dir);
         }
 
         if (fireCountdown == 0f)
@@ -84,12 +82,5 @@ public class ShootEnemy : MonoBehaviour
 
         if (bullet != null)
             bullet.Seek(target);
-    }
-
-    private bool IsGOSleeping()
-    {
-        if (gameObject.GetComponent<Rigidbody>().velocity == new Vector3(0f, 0f, 0f))
-            return true;
-        else return false;
     }
 }

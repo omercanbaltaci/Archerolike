@@ -16,21 +16,11 @@ public class BasicEnemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        /*
-        healthBar = Instantiate(hBPrefab, transform);
-        staticRotation = healthBar.transform.rotation;
-        */
     }
 
     // Update is called once per frame
     void Update()
     {
         enemy.SetDestination(player.position);
-        
-        /*
-        healthBar.transform.position = new Vector3(transform.position.x, 5f, transform.position.z + 2f);
-        healthBar.transform.rotation = staticRotation;
-        */
     }
 }

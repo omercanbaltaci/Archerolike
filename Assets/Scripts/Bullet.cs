@@ -43,9 +43,5 @@ public class Bullet : MonoBehaviour
     void HitTarget()
     {
         Destroy(gameObject);
-
-        target.transform.localScale = new Vector3(target.transform.localScale.x, target.transform.localScale.y / 2, target.transform.localScale.z);
-        if (target.transform.localScale.y < 0.2f)
-            Destroy(target.gameObject);
     }
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Transform target;
     public float speed = 10f;
+    public float damage;
+    private Transform target;
+    private BasicEnemy basicEnemy;
 
     public void Seek(Transform _target)
     {
@@ -15,7 +17,8 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject targetObject = target.gameObject;
+        basicEnemy = targetObject.GetComponent<BasicEnemy>();
     }
 
     // Update is called once per frame
@@ -34,9 +37,12 @@ public class Bullet : MonoBehaviour
         if (direction.magnitude <= distanceThisFrame)
         {
             HitTarget();
+            basicEnemy.currentHealth -= damage;
+
             return;
         }
 
+        // bullet moves to the enemy's location
         transform.Translate(direction.normalized * distanceThisFrame, Space.World);
     }
 

@@ -56,11 +56,6 @@ public class ShootEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* modify this later to change scene maybe
-        if (target == null)
-            return;
-        */
-
         // target lock on
         if (target != null && UtilityHelper.IsGOSleeping(gameObject))
         {

@@ -150,5 +150,5 @@ MonoBehaviour:
   enemySpeed: 4
   maxHealth: 100
   currentHealth: 0
-  healthBar: {fileID: 5851623684453721914, guid: 47c56d869ac48154b96df5d9d85d3783,
+  healthBar: {fileID: 6106276085787794299, guid: 47c56d869ac48154b96df5d9d85d3783,
     type: 3}

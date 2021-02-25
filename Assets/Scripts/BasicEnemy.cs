@@ -52,7 +52,7 @@ public class BasicEnemy : MonoBehaviour
     void SetPositionOfHB(Slider healthBar, Transform location)
     {
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
-        screenPosition += new Vector2(0f, 50f);
+        screenPosition += new Vector2(0f, 40f);
         healthBar.transform.position = screenPosition;
     }
 }

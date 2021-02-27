@@ -37,6 +37,13 @@ public class ShootEnemy : MonoBehaviour
 
             if (distance < shortestDistance)
             {
+                RaycastHit hit;
+                if (Physics.Linecast(transform.position, enemy.transform.position, out hit))
+                {
+                    if (hit.transform.tag == "Obstacle")
+                        continue;
+                }
+
                 shortestDistance = distance;
                 nearestEnemy = enemy;
             }
@@ -46,12 +53,14 @@ public class ShootEnemy : MonoBehaviour
         {
             target = nearestEnemy.transform;
 
+            /*
             RaycastHit hit;
             if (Physics.Linecast(transform.position, target.transform.position, out hit))
             {
                 if (hit.transform.tag == "Obstacle")
                     return;
             }
+            */
 
             if (UtilityHelper.IsGOSleeping(gameObject))
                 Shoot();

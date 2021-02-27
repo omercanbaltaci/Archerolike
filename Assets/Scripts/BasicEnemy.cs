@@ -6,16 +6,15 @@ using UnityEngine.UI;
 
 public class BasicEnemy : MonoBehaviour
 {
+    private Slider hBInstance;
+    private Transform player;
+
     [Header("Attributes")]
     public NavMeshAgent enemy;
     public float enemySpeed;
     public float maxHealth;
     public float currentHealth;
-    private Transform player;
     public Slider healthBar;
-
-    [Header("Other")]
-    private Slider hBInstance;
 
     // Start is called before the first frame update
     void Start()

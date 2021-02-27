@@ -7,12 +7,13 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform[] spawnLocations;
 
-    [Header("Number of Enemies")]
-    public int count;
+    private int count;
 
     // Start is called before the first frame update
     void Start()
     {
+        count = spawnLocations.Length;
+
         while (count > 0)
         {
             GameObject instantiatedEnemy = Instantiate(enemyPrefab, spawnLocations[spawnLocations.Length - count].position, Quaternion.identity);

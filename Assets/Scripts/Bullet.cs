@@ -17,8 +17,11 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject targetObject = target.gameObject;
-        basicEnemy = targetObject.GetComponent<BasicEnemy>();
+        if (target != null)
+        {
+            GameObject targetObject = target.gameObject;
+            basicEnemy = targetObject.GetComponent<BasicEnemy>();
+        }
     }
 
     // Update is called once per frame

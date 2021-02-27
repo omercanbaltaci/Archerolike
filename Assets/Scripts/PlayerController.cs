@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public float dashTime;
     private Rigidbody rb;
     private Vector3 input;
     private Vector3 velocity;
@@ -27,11 +28,31 @@ public class PlayerController : MonoBehaviour
         {
             UtilityHelper.ChangeRotation(transform, input);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     private void FixedUpdate()
     {
         velocity = input * speed;
         rb.velocity = velocity;
+    }
+
+    IEnumerator Dash()
+    {
+        float startTime = Time.time;
+        float oldSpeed = speed;
+
+        while (Time.time < startTime + dashTime)
+        {
+            speed = 40f;
+
+            yield return null;
+        }
+
+        speed = oldSpeed;
     }
 }

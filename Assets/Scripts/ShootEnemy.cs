@@ -10,7 +10,7 @@ public class ShootEnemy : MonoBehaviour
     public float turnSpeed;
     
     [Header("Attributes")]
-    public float fireRate = 1f;
+    public float fireRate = 3f;
     private float fireCountdown = 0f;
 
     [Header("Bullet")]
@@ -50,21 +50,7 @@ public class ShootEnemy : MonoBehaviour
         }
 
         if (nearestEnemy != null)
-        {
             target = nearestEnemy.transform;
-
-            /*
-            RaycastHit hit;
-            if (Physics.Linecast(transform.position, target.transform.position, out hit))
-            {
-                if (hit.transform.tag == "Obstacle")
-                    return;
-            }
-            */
-
-            if (UtilityHelper.IsGOSleeping(gameObject))
-                Shoot();
-        }
         else
             target = null;
     }
@@ -79,8 +65,13 @@ public class ShootEnemy : MonoBehaviour
             UtilityHelper.ChangeRotation(transform, dir);
         }
 
-        if (fireCountdown == 0f)
+        if (fireCountdown <= 0f)
+        {
+            if (UtilityHelper.IsGOSleeping(gameObject))
+                Shoot();
+            
             fireCountdown = 1f / fireRate;
+        }
 
         fireCountdown -= Time.deltaTime;
     }

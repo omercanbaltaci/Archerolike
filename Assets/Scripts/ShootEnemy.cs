@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class ShootEnemy : MonoBehaviour
 {
+    private float oldID;
+
     [Header("Targeting")]
     public Transform target;
+    public GameObject indicatorPrefab;
     public string targetTag;
     public float turnSpeed;
     
@@ -20,7 +23,9 @@ public class ShootEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating(nameof(UpdateTarget), 0f, 0.5f);
+
+        oldID = target.GetInstanceID();
     }
 
     void UpdateTarget()
@@ -37,10 +42,10 @@ public class ShootEnemy : MonoBehaviour
 
             if (distance < shortestDistance)
             {
-                RaycastHit hit;
-                if (Physics.Linecast(transform.position, enemy.transform.position, out hit))
+                // checks if there is an obstacle between player and target
+                if (Physics.Linecast(transform.position, enemy.transform.position, out RaycastHit hit))
                 {
-                    if (hit.transform.tag == "Obstacle")
+                    if (hit.transform.CompareTag("Obstacle"))
                         continue;
                 }
 
@@ -50,7 +55,29 @@ public class ShootEnemy : MonoBehaviour
         }
 
         if (nearestEnemy != null)
+        {
             target = nearestEnemy.transform;
+
+            if (oldID != target.GetInstanceID())
+            {
+
+                GameObject[] indicators = GameObject.FindGameObjectsWithTag("Indicator");
+
+                if (indicators.Length > 0) 
+                { 
+                    Destroy(indicators[0]);
+
+                    InstantiateIndicator(indicatorPrefab, target);
+                }
+                else
+                {
+                    InstantiateIndicator(indicatorPrefab, target);
+                }
+
+                oldID = target.GetInstanceID();
+            }
+        }
+            
         else
             target = null;
     }
@@ -84,5 +111,12 @@ public class ShootEnemy : MonoBehaviour
 
         if (bullet != null)
             bullet.Seek(target);
+    }
+
+    void InstantiateIndicator(GameObject indicatorPrefab, Transform target)
+    {
+        GameObject indicatorInstance = Instantiate(indicatorPrefab);
+        indicatorInstance.transform.SetParent(target, false);
+        indicatorInstance.transform.position = target.position;
     }
 }

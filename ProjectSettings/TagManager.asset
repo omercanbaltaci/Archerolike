@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - WinMessage
   - Obstacle
+  - Indicator
   layers:
   - Default
   - TransparentFX

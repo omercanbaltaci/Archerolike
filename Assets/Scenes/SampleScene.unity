@@ -1257,6 +1257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  indicatorPrefab: {fileID: 5518882291445149452, guid: cad10d3da13902544aaf76d142b94b56,
+    type: 3}
   targetTag: Enemy
   turnSpeed: 15
   fireRate: 3

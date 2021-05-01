@@ -41,6 +41,10 @@ public class BasicEnemy : MonoBehaviour
 
         if (hBInstance != null)
             SetPositionOfHB(hBInstance, transform);
+
+        // always look at the player
+        Vector3 dir = player.position - transform.position;
+        UtilityHelper.ChangeRotation(transform, dir);
     }
 
     float ReturnHP()

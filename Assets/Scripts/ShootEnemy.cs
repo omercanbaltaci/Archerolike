@@ -85,8 +85,8 @@ public class ShootEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // target lock on
-        if (target != null && UtilityHelper.IsGOSleeping(gameObject))
+        // Locking on target
+        if (target != null && UtilityHelper.IsGameObjectSleeping(gameObject))
         {
             Vector3 dir = target.position - transform.position;
             UtilityHelper.ChangeRotation(transform, dir);
@@ -94,7 +94,7 @@ public class ShootEnemy : MonoBehaviour
 
         if (fireCountdown <= 0f)
         {
-            if (UtilityHelper.IsGOSleeping(gameObject))
+            if (UtilityHelper.IsGameObjectSleeping(gameObject))
                 Shoot();
             
             fireCountdown = 1f / fireRate;

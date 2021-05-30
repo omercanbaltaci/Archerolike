@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    private GameObject[] enemiesInVicinity;
     public Transform[] spawnLocations;
 
     private int count;
@@ -12,6 +13,19 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SpawnEnemy();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        enemiesInVicinity = GameObject.FindGameObjectsWithTag("Enemy");
+        
+        if (enemiesInVicinity.Length == 0)
+            SpawnEnemy();
+    }
+
+    private void SpawnEnemy() {
         count = spawnLocations.Length;
 
         while (count > 0)
@@ -21,11 +35,5 @@ public class EnemySpawner : MonoBehaviour
 
             count--;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

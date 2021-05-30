@@ -25,8 +25,8 @@ public class BasicEnemy : MonoBehaviour
 
         hBInstance = Instantiate(healthBar);
         hBInstance.transform.SetParent(GameObject.Find("Canvas").transform, false);
-        SetPositionOfHB(hBInstance, transform);
-        hBInstance.value = ReturnHP();
+        SetPositionOfHealthBar(hBInstance, transform);
+        hBInstance.value = ReturnHitPoint();
     }
 
     // Update is called once per frame
@@ -34,25 +34,25 @@ public class BasicEnemy : MonoBehaviour
     {
         enemy.SetDestination(player.position);
 
-        hBInstance.value = ReturnHP();
+        hBInstance.value = ReturnHitPoint();
         
-        if (ReturnHP() <= 0)
+        if (ReturnHitPoint() <= 0)
             Destroy(gameObject);
 
         if (hBInstance != null)
-            SetPositionOfHB(hBInstance, transform);
+            SetPositionOfHealthBar(hBInstance, transform);
 
         // always look at the player
         Vector3 dir = player.position - transform.position;
         UtilityHelper.ChangeRotation(transform, dir);
     }
 
-    float ReturnHP()
+    float ReturnHitPoint()
     {
         return currentHealth / maxHealth;
     }
 
-    void SetPositionOfHB(Slider healthBar, Transform location)
+    void SetPositionOfHealthBar(Slider healthBar, Transform location)
     {
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
         screenPosition += new Vector2(0f, 15f);

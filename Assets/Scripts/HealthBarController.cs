@@ -16,7 +16,7 @@ public class HealthBarController : MonoBehaviour
     {
         if (gameObject.GetComponent<Slider>().value <= 0)
             Destroy(gameObject);
-
+        
         gameObject.GetComponent<Slider>().GetComponentInChildren<Text>().text = (gameObject.GetComponent<Slider>().value * 100).ToString();
     }
 }

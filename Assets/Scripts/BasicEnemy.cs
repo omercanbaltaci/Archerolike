@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class BasicEnemy : MonoBehaviour
 {
-    private Slider hBInstance;
+    private Slider healthBarInstance;
     private Transform player;
+    public GameObject upgrade;
 
     [Header("Attributes")]
     public NavMeshAgent enemy;
@@ -23,10 +24,10 @@ public class BasicEnemy : MonoBehaviour
         enemy.speed = enemySpeed;
         currentHealth = maxHealth;
 
-        hBInstance = Instantiate(healthBar);
-        hBInstance.transform.SetParent(GameObject.Find("Canvas").transform, false);
-        SetPositionOfHealthBar(hBInstance, transform);
-        hBInstance.value = ReturnHitPoint();
+        healthBarInstance = Instantiate(healthBar);
+        healthBarInstance.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        SetPositionOfHealthBar(healthBarInstance, transform);
+        healthBarInstance.value = ReturnHitPoint();
     }
 
     // Update is called once per frame
@@ -34,15 +35,18 @@ public class BasicEnemy : MonoBehaviour
     {
         enemy.SetDestination(player.position);
 
-        hBInstance.value = ReturnHitPoint();
+        healthBarInstance.value = ReturnHitPoint();
         
-        if (ReturnHitPoint() <= 0)
+        if (currentHealth <= 0) 
+        {
             Destroy(gameObject);
+            // Drop an upgrade here
+        }
 
-        if (hBInstance != null)
-            SetPositionOfHealthBar(hBInstance, transform);
+        if (healthBarInstance != null)
+            SetPositionOfHealthBar(healthBarInstance, transform);
 
-        // always look at the player
+        // Always look at the player
         Vector3 dir = player.position - transform.position;
         UtilityHelper.ChangeRotation(transform, dir);
     }

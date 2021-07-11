@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour 
 {
     public GameObject enemyPrefab;
     private GameObject[] enemiesInVicinity;
@@ -11,24 +11,25 @@ public class EnemySpawner : MonoBehaviour
     private int count;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() 
     {
         SpawnEnemy();
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
         enemiesInVicinity = GameObject.FindGameObjectsWithTag("Enemy");
         
-        if (enemiesInVicinity.Length == 0)
+        if (enemiesInVicinity.Length == 0) 
             SpawnEnemy();
     }
 
-    private void SpawnEnemy() {
+    private void SpawnEnemy() 
+    {
         count = spawnLocations.Length;
 
-        while (count > 0)
+        while (count > 0) 
         {
             GameObject instantiatedEnemy = Instantiate(enemyPrefab, spawnLocations[spawnLocations.Length - count].position, Quaternion.identity);
             instantiatedEnemy.gameObject.tag = "Enemy";

@@ -15,12 +15,6 @@ public class CameraControl : MonoBehaviour
             transform.position.z - target.position.z);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void FixedUpdate()
     {
         transform.position = target.position + offset;
